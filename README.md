@@ -28,7 +28,7 @@ This data contains atomic coordinates, energy and forces of TiO2 anatase, liquid
    2. force.raw: atomic forces in eV/angstrom units. Format: F(1,x) F(1,y) F(1,z) ... F(N,x) F(N,y) F(N,z). F(i,j) is the cartesion component j of atom with index i.
    3. energy.raw: potential energy in eV units.
    4. box.raw: unit cell tensor in angstrom units.
-   5. type.raw: index assigned for each atomic species. Format: I(1) I(2) ... I(N). I(i) is the label of atomic species of atom with index i. In this data set we use the following convention: Ti=1, H=2 and O=3.
+   5. type.raw: index assigned for each atomic species. Format: I(1) I(2) ... I(N). I(i) is the label of atomic species of atom with index i. In this data set we use the following convention: Ti=0, H=1 and O=2.
 
 ## References ##
 
