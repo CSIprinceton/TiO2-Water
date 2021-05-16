@@ -1,0 +1,4 @@
+raw_data/tio2_water/coord.raw filter=lfs diff=lfs merge=lfs -text
+raw_data/tio2_water/force.raw filter=lfs diff=lfs merge=lfs -text
+raw_data/water/force.raw filter=lfs diff=lfs merge=lfs -text
+raw_data/water/coord.raw filter=lfs diff=lfs merge=lfs -text
