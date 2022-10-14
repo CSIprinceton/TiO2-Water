@@ -1,7 +1,32 @@
 # TiO2-Water DP Trainig Data #
 
-If you're using this data, please read and cite: 
-[1] *Calegari Andrade, M. F., Ko, H.-Y., Zhang, L., Car, R. & Selloni, A. Free energy of proton transfer at the water–TiO2 interface from ab initio deep potential molecular dynamics. Chem. Sci. 11, 2335–2341 (2020).*
+This repo contains the data used to train a DPMD potential for the TiO2-water interface, as described in 
+
+*Calegari Andrade, M. F., Ko, H.-Y., Zhang, L., Car, R. & Selloni, A. Free energy of proton transfer at the water–TiO2 interface from ab initio deep potential molecular dynamics. Chem. Sci. 11, 2335–2341 (2020).*
+
+Before you start, please make sure you have DeepMD-Kit and Lammps installed. You can find good tutorials on how to compile DeepMD-kit and Lammps at the [DeepMD-Kit Documentation Page] (https://docs.deepmodeling.com/projects/deepmd/en/master/)
+
+## Downloading the dataset ##
+
+Please make sure you have git-lfs running on your local machine. The raw data used to train the DNN can only be downloaded with git-lfs.
+
+```
+git clone https://github.com/CSIprinceton/TiO2-Water.git
+cd TiO2-Water
+git lfs fetch --all
+get lfs pull
+```
+
+## Training your own DP models ##
+
+I have provided trained DNN graphs that are ready to use. These graphs are located at "train/?/". In case you want to train your own DNN model, please do the following:
+
+```
+cd raw_data
+./raw_to_set.sh
+cd ../train/1
+dp train tio2-water.json
+```
 
 ## Description ##
 
