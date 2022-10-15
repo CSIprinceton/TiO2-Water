@@ -28,7 +28,19 @@ cd ../train/1
 dp train tio2-water.json
 ```
 
-## Description ##
+## Running a simulation with Lammps ##
+
+There is a simple lammps input example at [lammps/lammps.in](lammps/lammps.in) and a initial condition at [lammps/pos.in](lammps/pos.in). This example runs a NVT simulation of the TiO2-water interface at 330 K. 3 different DNN models are used to evaluate the interatomic interactions, and the deviation between the quatities predicted by these potentials will be outputed to the file model_devi.out.
+
+Running Lammps is simple
+
+```
+lmp < lammps.in > lammps.out
+```
+
+### Note: there is no guarantee that the DNN potential will predict reasoable energy and forces if you start your dynamics from a unphysical configuration (or too far from the configurations sampled in the training data).###
+
+## Detailed description of the dataset ##
 
 This data contains atomic coordinates, energy and forces of TiO2 anatase, liquid water and the TiO2-water interface used to train a Deep Neural Network Potential. Data set was collected via a iterative training scheme described in [2]. In this repo you will find 3 main folders:
 
