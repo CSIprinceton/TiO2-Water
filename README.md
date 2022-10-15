@@ -38,7 +38,7 @@ Running Lammps is simple
 lmp < lammps.in > lammps.out
 ```
 
-### Note: there is no guarantee that the DNN potential will predict reasoable energy and forces if you start your dynamics from a unphysical configuration (or too far from the configurations sampled in the training data).###
+**Note: there is no guarantee that the DNN potential will predict reasoable energy and forces if you start your dynamics from a unphysical configuration (or too far from the configurations sampled in the training data).**
 
 ## Detailed description of the dataset ##
 
