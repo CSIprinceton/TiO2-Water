@@ -4,7 +4,7 @@ This repo contains the data used to train a DPMD potential for the TiO2-water in
 
 *Calegari Andrade, M. F., Ko, H.-Y., Zhang, L., Car, R. & Selloni, A. Free energy of proton transfer at the water–TiO2 interface from ab initio deep potential molecular dynamics. Chem. Sci. 11, 2335–2341 (2020).*
 
-Before you start, please make sure you have DeepMD-Kit and Lammps installed. You can find good tutorials on how to compile DeepMD-kit and Lammps at the [DeepMD-Kit Documentation Page] (https://docs.deepmodeling.com/projects/deepmd/en/master/)
+Before you start, please make sure you have DeepMD-Kit and Lammps installed. You can find good tutorials on how to compile DeepMD-kit and Lammps at the [DeepMD-Kit Documentation Page](https://docs.deepmodeling.com/projects/deepmd/en/master/)
 
 ## Downloading the dataset ##
 
