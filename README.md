@@ -14,7 +14,7 @@ Please make sure you have git-lfs running on your local machine. The raw data us
 git clone https://github.com/CSIprinceton/TiO2-Water.git
 cd TiO2-Water
 git lfs fetch --all
-get lfs pull
+git lfs pull
 ```
 
 ## Training your own DP models ##
