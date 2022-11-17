@@ -65,7 +65,7 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
   USE parameters, ONLY : natoms, atype, atype2
   IMPLICIT NONE
   INTEGER :: iat, coordination_number, CN
-  REAL*8, PARAMETER :: rcut=2.6 !Angstroms
+  REAL*8, PARAMETER :: rcut=2.2 !Angstroms
 
   CALL READ_ATOM
   ALLOCATE(atype2(natoms))
@@ -80,6 +80,8 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
       ELSE IF (CN.eq.3) THEN
         atype2(iat) = 33
         atype(iat)=30
+      ELSE IF (CN.lt.2) THEN
+        atype2(iat) = 31
       END IF
     END IF
   END DO
@@ -191,10 +193,12 @@ SUBROUTINE PRINT_RESULTS
 
   write(2,*) '#', 'Z', 'RDF'
 
-  bin =  maxr/float(nhist)
-  number_density = number_density !/ float(nframes)
-
   N = get_natoms_type(atype2,natoms,ind_rdf(1)) 
+
+  bin =  maxr/float(nhist)
+  !number_density = number_density !/ float(nframes)
+  number_density = float(nframes) * float(N)
+
 
   DO ihist = 1, nhist
 

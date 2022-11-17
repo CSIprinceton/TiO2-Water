@@ -1,7 +1,7 @@
 #Atom types
 ti5c=15
 o2c=32
-ow=3
+ow=31
 h=2
 
 #Compile Fortran code
