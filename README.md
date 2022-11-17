@@ -30,7 +30,7 @@ dp train tio2-water.json
 
 ## Running a simulation with Lammps ##
 
-There is a simple lammps input example at [lammps/lammps.in](lammps/lammps.in) and a initial condition at [lammps/pos.in](lammps/pos.in). This example runs a NVT simulation of the TiO2-water interface at 330 K. 3 different DNN models are used to evaluate the interatomic interactions, and the deviation between the quatities predicted by these potentials will be outputed to the file model_devi.out.
+There is a simple lammps input example at [lammps/lammps.in](lammps/lammps.in) and a initial condition at [lammps/pos.in](lammps/pos.in). This example runs a NVT simulation of the TiO2-water interface at 330 K. 3 different DNN models are used to evaluate the interatomic interactions, and the deviation between the energies and forces predicted by these potentials will be outputed to the file model_devi.out.
 
 Running Lammps is simple
 

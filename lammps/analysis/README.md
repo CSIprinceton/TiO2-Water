@@ -1,4 +1,4 @@
-# Sample of analysis for TiO2/Water
+## Sample analysis for the TiO2-water trajectory
 
 Here I provide a simple [code](./codes/RDF_tio2.f90) to compute the RDF between surface TiO2 atoms and water atoms. I am assuming you have ran lammps and generated the trajectory file "pos.lammpstrj". If so, you can run the analysis in this directory with:
 
