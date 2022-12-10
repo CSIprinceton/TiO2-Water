@@ -1,14 +1,3 @@
-
-MODULE parameters
-  IMPLICIT NONE 
-  INTEGER                            :: natoms, stride
-  INTEGER                            :: nframes, nequil, nhist
-  INTEGER                            :: ind_rdf(2)
-  INTEGER, ALLOCATABLE               :: atype(:), gofr(:),atype2(:) 
-  REAL*8                             :: box(3), maxr, number_density
-  REAL*8, ALLOCATABLE                :: pos(:,:)
-END MODULE parameters
-
 PROGRAM RDF
   USE parameters, ONLY : nframes, stride
   IMPLICIT NONE
@@ -19,7 +8,7 @@ PROGRAM RDF
   CALL DEFINE_ADDITIONAL_ATOM_TYPES
   
   DO frame = 1,nframes
-    CALL READ_ATOM
+    CALL READ_ATOM_REDUCED
     if (MOD(frame,stride)==0) CALL COMPUTE_RDF
   END DO
 
@@ -52,7 +41,7 @@ SUBROUTINE INITIALIZE
   number_density = 0.d0
 
   !Allocate module arrays
-  ALLOCATE(pos(natoms,3))
+  ALLOCATE(pos(3,natoms))
   ALLOCATE(atype(natoms))
   ALLOCATE(gofr(nhist)); gofr=0
 
@@ -64,7 +53,7 @@ END SUBROUTINE INITIALIZE
 SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
   USE parameters, ONLY : natoms, atype, atype2
   IMPLICIT NONE
-  INTEGER :: iat, coordination_number, CN
+  INTEGER :: iat, coordination_number_, CN
   REAL*8, PARAMETER :: rcut=2.2 !Angstroms
 
   CALL READ_ATOM
@@ -73,7 +62,7 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
 
   DO iat=1,natoms
     IF (atype(iat).eq.3) THEN !Define O atoms first
-      CN = coordination_number(iat,1,rcut)
+      CN = coordination_number_(iat,1,rcut)
       IF (CN.eq.2) THEN
         atype2(iat) = 32
         atype(iat)=30
@@ -88,7 +77,7 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
 
   DO iat=1,natoms
     IF (atype(iat).eq.1) THEN !Define Ti atoms
-      CN = coordination_number(iat,30,rcut)
+      CN = coordination_number_(iat,30,rcut)
       IF (CN.eq.5) atype2(iat)=15
       IF (CN.eq.6) atype2(iat)=16
     END IF
@@ -97,45 +86,6 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
   REWIND(1)
 
 END SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
-
-SUBROUTINE REMOVE_EQUIL
-  USE parameters, ONLY : natoms, nframes, nequil
-  IMPLICIT NONE
-  INTEGER                    :: iframe
-
-  DO iframe = 1,nequil*(natoms+9)
-    READ(1,*)
-  END DO
-
-  nframes = nframes - nequil
-
-END SUBROUTINE REMOVE_EQUIL
-
-SUBROUTINE READ_ATOM
-  !Read LAMMPS atom file
-  USE parameters, ONLY : pos, natoms, atype, box
-  IMPLICIT NONE
-  INTEGER                    :: iat, ind, junk
-  REAL*8                     :: box_tmp(2)
- 
-  DO iat=1,5
-    READ(1,*)
-  END DO
-
-  !Read Box
-  DO iat=1,3
-    READ(1,*) box_tmp(1), box_tmp(2)
-    box(iat) = box_tmp(2)-box_tmp(1)
-  END DO
-
-  READ(1,*)
-
-  DO iat = 1, natoms
-    READ(1,*) ind, atype(ind), pos(ind,1), pos(ind,2), pos(ind,3)
-    pos(ind,:) = pos(ind,:) * box !Non-reduced coordinates
-  END DO
-
-END SUBROUTINE READ_ATOM
 
 SUBROUTINE COMPUTE_RDF
   USE parameters, ONLY : natoms, pos, ind_rdf, box, &
@@ -231,25 +181,7 @@ INTEGER FUNCTION get_natoms_type(atype,natoms,ind_rdf)
 
 END FUNCTION get_natoms_type
 
-REAL*8 FUNCTION Dist(ind1,ind2)
-  ! Distance between two points including pbc
-  USE parameters, ONLY : pos, box
-  IMPLICIT NONE
-  REAL*8                     :: xyz(3)
-  INTEGER                    :: i, ind1, ind2
-
-  DO i = 1,3
-
-    xyz(i) = pos(ind1,i) - pos(ind2,i)
-    xyz(i) = xyz(i) - nint( xyz(i)/box(i) ) * box(i)
-
-  END DO
-
-  Dist = SQRT( SUM(xyz*xyz) )
-
-END FUNCTION Dist
-
-INTEGER FUNCTION coordination_number(iat,atyp,rcut)
+INTEGER FUNCTION coordination_number_(iat,atyp,rcut)
   USE parameters, only : natoms,atype
   IMPLICIT NONE
   INTEGER, INTENT(IN) :: iat,atyp
@@ -267,6 +199,6 @@ INTEGER FUNCTION coordination_number(iat,atyp,rcut)
 
   END DO
 
-  coordination_number=cn
+  coordination_number_=cn
 
-END FUNCTION coordination_number
+END FUNCTION coordination_number_

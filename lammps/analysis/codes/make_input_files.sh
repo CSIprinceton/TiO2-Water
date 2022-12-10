@@ -4,6 +4,9 @@ pos=$1       #User needs to input the filename of lammpstrj file
 nequil=0     #Number of initial steps not included for analysis
 stride=1     #Run analysis at each $stride frames
 nhistrdf=400 #Number of points in the histogram for radial distribution
+ntype=3      #Number of atom types
+zdir=3       #Direction normal to the TiO2 surface (x:1,y:2,z:3)
+zoffset=0    #Offset number density distribution by a constant
 
 ###########################################
 #Variables obtained from the lammpstrj file
@@ -21,3 +24,7 @@ $nat $nframes $nequil $stride $nhistrdf
 $a $b $c
 EOF
 
+cat << EOF > index_zdf
+$nat $ntype $nframes $nequil $stride $nhistrdf $zdir
+$zoffset
+EOF
