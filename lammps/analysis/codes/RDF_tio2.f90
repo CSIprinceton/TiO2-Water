@@ -56,7 +56,7 @@ SUBROUTINE DEFINE_ADDITIONAL_ATOM_TYPES
   INTEGER :: iat, coordination_number_, CN
   REAL*8, PARAMETER :: rcut=2.2 !Angstroms
 
-  CALL READ_ATOM
+  CALL READ_ATOM_REDUCED
   ALLOCATE(atype2(natoms))
   atype2=atype
 
