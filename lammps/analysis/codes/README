@@ -1,1 +1,2 @@
 RDF_tio2.f90 computes the number density distribution in units of atoms/A^3
+ZDF.f90 computes the atomic number density (Ti,H and O) relative to the experimental number density of bulk liquid water at 300 K and 1 bar. Generates the output zdf.dat, whose columns are : Z(angstrom), n(Ti), n(H) and n(O). Z is the cartesian component along the direction normal to the surface, and n(X) is the number density of atom with type X.
